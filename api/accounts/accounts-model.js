@@ -14,7 +14,10 @@ const getById = id => {
 }
 
 const create = account => {
-  // DO YOUR MAGIC
+  //insert into (name, budget)
+  //values ('string', value)
+  return db('accounts')
+    .insert(account)
   
 }
 
