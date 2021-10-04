@@ -15,7 +15,9 @@ router.get('/:id', (req, res, next) => {
     .then(account => {
       res.status(200).json(account)
     })
-    .catch(next)
+    .catch(err => {
+      next(err);
+    })
 })
 
 router.post('/', (req, res, next) => {
@@ -31,8 +33,11 @@ router.delete('/:id', (req, res, next) => {
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line
-
-})
+  res.status(err.status || 500).json({ 
+    message: err.message,
+    stack: err.stack 
+  });
+});
 
 
 module.exports = router;
