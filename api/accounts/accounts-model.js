@@ -22,13 +22,20 @@ async function create (account) {
   
 }
 
-const updateById = (id, account) => {
-  // 
-  
+async function updateById (id, account) {
+  // update accounts set name= req.body.name, budget = req.body.budget where id = #
+  const updatedId = await db('accounts')
+    .update(account)
+    .where('id', id)
+
+  return getById(updatedId);
 }
 
 const deleteById = id => {
-  // DO YOUR MAGIC
+  // delete from accounts where id = #
+  return db('accounts')
+    .where('id', id)
+    .del()
 }
 
 module.exports = {

@@ -2,7 +2,6 @@ const { validatePayloadSchema } = require('./../validationSchema/yupValidation')
 const Accounts = require('./accounts-model');
 
 exports.checkAccountPayload = async (req, res, next) => {
-  // DO YOUR MAGIC
   try {
     const validatedPayload = await validatePayloadSchema.validate(req.body);
     req.body = validatedPayload;

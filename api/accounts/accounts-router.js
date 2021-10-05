@@ -36,14 +36,30 @@ router.post('/', checkAccountPayload, checkAccountNameUnique, (req, res, next) =
   }
 })
 
-router.put('/:id',  async (req, res, next) => {
-// DO YOUR MAGIC
-  // try{}
-  // catch(){}
+router.put('/:id', checkAccountId, checkAccountPayload, checkAccountNameUnique, (req, res, next) => {
+  try {
+    Accounts.updateById(req.params.id, req.body)
+      .then(updatedAccount => {
+        res.json(updatedAccount);
+      })
+      .catch(next)
+  }
+  catch(err){ 
+    next(err);
+  }
 });
 
-router.delete('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.delete('/:id', checkAccountId, async (req, res, next) => {
+  try {
+    Accounts.deleteById(req.params.id)
+    .then(() => {
+      res.json(req.account)
+    })
+    .catch(next)
+  }
+  catch(err){
+    next(err);
+  }
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line
