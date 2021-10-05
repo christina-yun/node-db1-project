@@ -18,13 +18,12 @@ async function create (account) {
   //values ('string', value);
   const id = await db('accounts')
     .insert(account);
-    
   return getById([id]);
   
 }
 
 const updateById = (id, account) => {
-  // DO YOUR MAGIC
+  // 
   
 }
 

@@ -9,16 +9,29 @@ exports.checkAccountPayload = async (req, res, next) => {
     next();
   }
   catch(err){
-    next({ status: 400, message: 'missing required field' });
+    next({ status: 400, message: err.message });
   }
 }
 
-exports.checkAccountNameUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkAccountNameUnique = async (req, res, next) => {
+  try {
+    const accountNamesArray = await Accounts.getAll();
+    const accountNameMatch = accountNamesArray.filter(account => {
+      return account.name === req.body.name
+    })
+    if (accountNameMatch.length > 0 ) {
+      next({ status: 400, message: 'that name is taken'})
+    } else {
+      next();
+    }
+  }
+  catch(err){
+    next(err);
+  }
 }
 
 exports.checkAccountId = async (req, res, next) => {
-  try{
+  try {
     const validId = await Accounts.getById(req.params.id);
     
     if(!validId){
