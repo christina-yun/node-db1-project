@@ -13,16 +13,19 @@ const getById = id => {
     .first();
 }
 
-const create = account => {
-  //insert into (name, budget)
-  //values ('string', value)
-  return db('accounts')
-    .insert(account)
+async function create (account) {
+  //insert into accounts (name, budget)
+  //values ('string', value);
+  const id = await db('accounts')
+    .insert(account);
+    
+  return getById([id]);
   
 }
 
 const updateById = (id, account) => {
   // DO YOUR MAGIC
+  
 }
 
 const deleteById = id => {
